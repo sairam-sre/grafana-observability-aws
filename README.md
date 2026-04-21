@@ -2,12 +2,11 @@
 
  📌 Project Overview
 
-This project demonstrates how to monitor an AWS EC2 instance using CloudWatch metrics, visualize them in Grafana, and configure alerting with SNS email notifications. It also includes secure access setup using IAM Identity Center (SSO).
+This project demonstrates how to monitor an AWS EC2 instance using CloudWatch metrics, visualize them in Grafana, and configure alerting with SNS email notifications. Infrastructure is provisioned using AWS CloudFormation template. It also includes secure access setup using IAM Identity Center (SSO).
 
 ## 🧠 Architecture Flow
 
-EC2 → CloudWatch → Grafana → SNS → Email
-
+EC2 Instance → CloudWatch Metrics → Grafana Dashboard & Alerting → SNS Topic → Email Notification
 ---
 
  🛠️ Services Used
@@ -41,18 +40,16 @@ Outcome:
 
 ⚙️ Step-by-Step Execution
 
-1. Created EC2 Instance
+1. Provisioned EC2 Instance
 
 - Launched EC2 instance (t2.micro)
 - Connected via SSH
 
-2. Installed Stress Tool
+2. Installed stress tool for load testing
 
 Used to generate CPU load:
 
 sudo yum install stress -y
-
----
 
 3. Generated CPU Load
 
@@ -60,22 +57,16 @@ stress --cpu 1
 
 - This increases CPU utilization for testing alerts
 
----
-
 4. CloudWatch Monitoring
 
 - Used default EC2 metric: CPUUtilization
 - Verified metrics in CloudWatch console
-
----
 
 5. Grafana Setup
 
 - Opened AWS Managed Grafana workspace
 - Added CloudWatch as data source
 - Verified EC2 metrics in Grafana dashboard
-
----
 
 6. Created Alert Rule in Grafana
 
@@ -84,23 +75,17 @@ stress --cpu 1
 - Evaluation: Every 1 minute
 - Pending period: 5 minutes
 
----
-
 7. SNS Configuration
 
 - Created SNS Topic (grafana-alerts)
 - Subscribed email endpoint
 - Confirmed subscription via email
 
----
-
 8. Integrated SNS with Grafana
 
 - Created Contact Point using SNS
 - Updated Notification Policy
 - Linked alert rule to SNS contact point
-
----
 
 9. Alert Triggered
 
