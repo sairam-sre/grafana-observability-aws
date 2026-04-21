@@ -70,16 +70,16 @@ Outcome:
 
 6. Created Alert Rule in Grafana
 
-  - Metric: CPUUtilization
-  - Condition: IS ABOVE 30%
-  - Evaluation: Every 1 minute
-  - Pending period: 5 minutes
+    - Metric: CPUUtilization
+    - Condition: IS ABOVE 30%
+    - Evaluation: Every 1 minute
+    - Pending period: 5 minutes
 
 7. SNS Configuration
 
-  - Created SNS Topic (grafana-alerts)
-  - Subscribed email endpoint
-  - Confirmed subscription via email
+   - Created SNS Topic (grafana-alerts)
+   - Subscribed email endpoint
+   - Confirmed subscription via email
 
 8. Integrated SNS with Grafana
 
