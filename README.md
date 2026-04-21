@@ -155,8 +155,10 @@ Email Notification
 grafana-observability-aws/
 │
 ├── README.md
-├── steps.md
-└── screenshots/
+├── cloudformation/
+│   └── template.yaml
+└── scripts/
+└── setup-notes.txt
 
 ---
 
