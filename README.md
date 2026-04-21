@@ -42,56 +42,56 @@ Outcome:
 
 1. Provisioned EC2 Instance
 
-- Launched EC2 instance (t2.micro)
-- Connected via SSH
+   - Launched EC2 instance (t2.micro)
+   - Connected via SSH
 
 2. Installed stress tool for load testing
 
-Used to generate CPU load:
+    Used to generate CPU load:
 
-sudo yum install stress -y
+    sudo yum install stress -y
 
 3. Generated CPU Load
 
-stress --cpu 1
+      stress --cpu 1
 
-- This increases CPU utilization for testing alerts
+         - This increases CPU utilization for testing alerts
 
 4. CloudWatch Monitoring
 
-- Used default EC2 metric: CPUUtilization
-- Verified metrics in CloudWatch console
+   - Used default EC2 metric: CPUUtilization
+   - Verified metrics in CloudWatch console
 
 5. Grafana Setup
 
-- Opened AWS Managed Grafana workspace
-- Added CloudWatch as data source
-- Verified EC2 metrics in Grafana dashboard
+   - Opened AWS Managed Grafana workspace
+   - Added CloudWatch as data source
+   - Verified EC2 metrics in Grafana dashboard
 
 6. Created Alert Rule in Grafana
 
-- Metric: CPUUtilization
-- Condition: IS ABOVE 30%
-- Evaluation: Every 1 minute
-- Pending period: 5 minutes
+  - Metric: CPUUtilization
+  - Condition: IS ABOVE 30%
+  - Evaluation: Every 1 minute
+  - Pending period: 5 minutes
 
 7. SNS Configuration
 
-- Created SNS Topic (grafana-alerts)
-- Subscribed email endpoint
-- Confirmed subscription via email
+  - Created SNS Topic (grafana-alerts)
+  - Subscribed email endpoint
+  - Confirmed subscription via email
 
 8. Integrated SNS with Grafana
 
-- Created Contact Point using SNS
-- Updated Notification Policy
-- Linked alert rule to SNS contact point
+   - Created Contact Point using SNS
+   - Updated Notification Policy
+   - Linked alert rule to SNS contact point
 
 9. Alert Triggered
 
-- CPU usage crossed threshold
-- Alert status changed to FIRING
-- Email notification received successfully
+   - CPU usage crossed threshold
+   - Alert status changed to FIRING
+   - Email notification received successfully
 
 ---
 
