@@ -1,97 +1,79 @@
-### AWS Grafana Observability Project ###
+### AWS Grafana Observability Setup ###
 
- 📌 Project Overview
+Overview
 
-This project demonstrates how to monitor an AWS EC2 instance using CloudWatch metrics, visualize them in Grafana, and configure alerting with SNS email notifications. Infrastructure is provisioned using AWS CloudFormation template. It also includes secure access setup using IAM Identity Center (SSO).
-
-## 🧠 Architecture Flow
-
-EC2 Instance → CloudWatch Metrics → Grafana Dashboard & Alerting → SNS Topic → Email Notification
----
-
- 🛠️ Services Used
-
-- AWS EC2
-- AWS CloudWatch
-- AWS Managed Grafana
-- AWS SNS (Simple Notification Service)
-- IAM Identity Center (SSO)
-- IAM Roles & Policies
+This project demonstrates monitoring an EC2 instance using CloudWatch, creating alerts in Grafana, and sending notifications via SNS email.
 
 ---
 
-🔐 IAM Identity Center (SSO) Setup
+Architecture
 
-- Configured IAM Identity Center for secure login
-- Created user and assigned permissions
-- Avoided using root account for operations
-
-Permissions Used:
-
-- AmazonGrafanaCloudWatchAccess
-- AmazonSNSFullAccess
-
-Outcome:
-
-- Logged into AWS using SSO
-- Managed resources securely using roles
+EC2 → CloudWatch → Grafana → SNS → Email
 
 ---
 
-⚙️ Step-by-Step Execution
+Execution Steps
 
-1. Provisioned EC2 Instance
+1. Launch EC2 instance (t2.micro) using AWS Console
 
-   - Launched EC2 instance (t2.micro)
-   - Connected via SSH
+2. Connect to EC2 using SSH
 
-2. Installed stress tool for load testing
+3. Install stress tool
+   sudo yum install stress -y
 
-    Used to generate CPU load:
+4. Generate CPU load
+   stress --cpu 1
 
-    sudo yum install stress -y
+5. Check CPUUtilization in CloudWatch
 
-3. Generated CPU Load
+6. Open AWS Managed Grafana
 
-      stress --cpu 1
+- Add CloudWatch as data source
+- Create dashboard
 
-         - This increases CPU utilization for testing alerts
+7. Create Alert Rule in Grafana
 
-4. CloudWatch Monitoring
+- Metric: CPUUtilization
+- Condition: Above 30%
+- Evaluation: 1 minute
 
-   - Used default EC2 metric: CPUUtilization
-   - Verified metrics in CloudWatch console
+8. Create SNS Topic
 
-5. Grafana Setup
+- Subscribe email
+- Confirm subscription
 
-   - Opened AWS Managed Grafana workspace
-   - Added CloudWatch as data source
-   - Verified EC2 metrics in Grafana dashboard
+9. Integrate SNS with Grafana
 
-6. Created Alert Rule in Grafana
+- Create contact point
+- Update notification policy
 
-    - Metric: CPUUtilization
-    - Condition: IS ABOVE 30%
-    - Evaluation: Every 1 minute
-    - Pending period: 5 minutes
+10. Trigger Alert
 
-7. SNS Configuration
+- CPU increases
+- Alert state becomes FIRING
+- Email notification received
 
-   - Created SNS Topic (grafana-alerts)
-   - Subscribed email endpoint
-   - Confirmed subscription via email
+---
 
-8. Integrated SNS with Grafana
+Commands Used
 
-   - Created Contact Point using SNS
-   - Updated Notification Policy
-   - Linked alert rule to SNS contact point
+sudo yum install stress -y
+stress --cpu 1
 
-9. Alert Triggered
+---
 
-   - CPU usage crossed threshold
-   - Alert status changed to FIRING
-   - Email notification received successfully
+Output
+
+- CPU usage increased
+- Alert triggered in Grafana
+- Email received via SNS
+
+---
+
+Note
+
+This setup was executed manually using AWS Console.
+CloudFormation template is included only for reference.
 
 ---
 
@@ -117,64 +99,5 @@ Email Notification
 
 <img width="1080" height="1460" alt="IMG_20260421_005628" src="https://github.com/user-attachments/assets/57691e40-a8d1-4594-98d2-477602627d6a" />
 
----
-
-📧 Output
-
-- Successfully received alert email when CPU crossed threshold
-- Alert contained:
-  - Instance ID
-  - CPU value
-  - Alert name
-
- ## 📊 Sample Alert
-
-- CPU Usage: 75%
-- Alert State: FIRING
-- Notification: Email received
-
----
-
-📁 Project Structure
-
-grafana-observability-aws/
-│
-├── README.md
-├── cloudformation/
-│   └── template.yaml
-└── scripts/
-└── setup-notes.txt
-
----
-
-✅ Conclusion
-
-- Implemented end-to-end monitoring using AWS services
-- Configured alerting mechanism using Grafana and SNS
-- Ensured secure access using IAM Identity Center
-- Verified real-time alerting through email notifications
-
-  ## 🤔 Why This Setup?
-
-- EC2 → compute instance
-- CloudWatch → metric collection
-- Grafana → visualization & alerting
-- SNS → notification delivery
-
----
-
-🚀 Future Improvements
-
-- Automate setup using Terraform or CloudFormation
-- Add GitHub Actions for CI/CD
-- Extend monitoring to memory/disk metrics
-
-  ## 📚 Key Learnings
-
-- AWS monitoring setup
-- Alerting using Grafana
-- SNS integration
-- IAM role-based access
-- Real-time system behavior
 
 
