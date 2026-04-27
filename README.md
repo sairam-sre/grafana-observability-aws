@@ -21,6 +21,9 @@ EC2 → CloudWatch → Grafana → SNS → Email
 4. Generated CPU load:
    stress --cpu 1
 
+   Alternatively, run the script:
+   bash scripts/stress.sh
+
 5. Verified CPUUtilization metric in CloudWatch
 
 6. Configured AWS Managed Grafana:
