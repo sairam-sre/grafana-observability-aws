@@ -1,68 +1,61 @@
-### AWS Grafana Observability Setup ###
+# AWS Grafana Observability Setup
 
-Overview
-
+## Overview
 This project demonstrates monitoring an EC2 instance using CloudWatch, creating alerts in Grafana, and sending notifications via SNS email.
 
 ---
 
-Architecture
-
+## Architecture
 EC2 → CloudWatch → Grafana → SNS → Email
 
 ---
 
-Execution Steps
+## Execution Steps
 
-1. Launch EC2 instance (t2.micro) using AWS Console
+1. Created EC2 instance (t2.micro)
+2. Connected to EC2 via SSH
 
-2. Connect to EC2 using SSH
-
-3. Install stress tool
+3. Installed stress tool:
    sudo yum install stress -y
 
-4. Generate CPU load
+4. Generated CPU load:
    stress --cpu 1
 
-5. Check CPUUtilization in CloudWatch
+5. Verified CPUUtilization metric in CloudWatch
 
-6. Open AWS Managed Grafana
+6. Configured AWS Managed Grafana:
+   - Added CloudWatch as data source
+   - Created dashboard
 
-- Add CloudWatch as data source
-- Create dashboard
+7. Created Alert Rule in Grafana:
+   - Metric: CPUUtilization
+   - Condition: Above 30%
+   - Evaluation: 1 minute
 
-7. Create Alert Rule in Grafana
+8. Configured SNS:
+   - Created SNS topic
+   - Subscribed email
+   - Confirmed subscription
 
-- Metric: CPUUtilization
-- Condition: Above 30%
-- Evaluation: 1 minute
+9. Integrated SNS with Grafana:
+   - Created contact point
+   - Linked alert rule
 
-8. Create SNS Topic
-
-- Subscribe email
-- Confirm subscription
-
-9. Integrate SNS with Grafana
-
-- Create contact point
-- Update notification policy
-
-10. Trigger Alert
-
-- CPU increases
-- Alert state becomes FIRING
-- Email notification received
+10. Alert Triggered:
+   - CPU usage increased
+   - Alert state changed to FIRING
+   - Email notification received
 
 ---
 
-Commands Used
+## Commands Used
 
-sudo yum install stress -y
+sudo yum install stress -y  
 stress --cpu 1
 
 ---
 
-Output
+## Output
 
 - CPU usage increased
 - Alert triggered in Grafana
@@ -70,14 +63,16 @@ Output
 
 ---
 
-Note
+## CloudFormation
 
-This setup was executed manually using AWS Console.
-CloudFormation template is included only for reference.
+A basic CloudFormation template is included in this repository.
+
+This setup was executed manually using AWS Console.  
+The template is provided to demonstrate how the infrastructure can be automated.
 
 ---
 
-📸 Screenshots
+## 📸 Screenshots
 
 Grafana Alert (Firing State)
 
@@ -98,6 +93,16 @@ SNS Subscription Confirmation
 Email Notification
 
 <img width="1080" height="1460" alt="IMG_20260421_005628" src="https://github.com/user-attachments/assets/57691e40-a8d1-4594-98d2-477602627d6a" />
+
+---
+
+## Conclusion
+
+- Implemented monitoring using AWS services
+- Configured alerting using Grafana and SNS
+- Verified real-time email notifications.
+
+
 
 
 
